@@ -72,7 +72,7 @@ func (a *ArtifactBatchCreator) Create() ([]*api.Artifact, error) {
 		// Retry the batch upload a couple of times
 		err = retry.NewRetrier(
 			retry.WithMaxAttempts(10),
-			retry.WithStrategy(retry.Constant(5*time.Second)),
+			retry.WithStrategy(retry.Exponential(2*time.Second, 3*time.Second)),
 		).Do(func(r *retry.Retrier) error {
 			creation, resp, err = a.apiClient.CreateArtifacts(a.conf.JobID, batch)
 			if resp != nil && (resp.StatusCode == 401 || resp.StatusCode == 404) {
