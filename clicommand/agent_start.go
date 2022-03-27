@@ -214,13 +214,13 @@ var AgentStartCommand = cli.Command{
 		},
 		cli.BoolFlag{
 			Name:   "disconnect-after-job",
-			Usage:  "Disconnect the agent after running a job",
+			Usage:  "Disconnect the agent as soon as the job they're running completes",
 			EnvVar: "BUILDKITE_AGENT_DISCONNECT_AFTER_JOB",
 		},
 		cli.IntFlag{
 			Name:   "disconnect-after-idle-timeout",
 			Value:  0,
-			Usage:  "If no jobs have come in for the specified number of seconds, disconnect the agent",
+			Usage:  "If no jobs have come in for the specified number of seconds, disconnect the agent. Note that the default for this flag is 0, and means \"don't disconnect idle agents\". If you want to disconnect agents as soon as they become idle, use the --disconnect-after-job flag instead",
 			EnvVar: "BUILDKITE_AGENT_DISCONNECT_AFTER_IDLE_TIMEOUT",
 		},
 		cli.IntFlag{
